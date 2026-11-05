@@ -1,7 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
-import Editor from '@monaco-editor/react';
+import Editor, { loader } from '@monaco-editor/react';
+import * as monaco from 'monaco-editor';
 import { Maximize2, Minimize2, FileCode, CheckCircle2, ChevronRight } from 'lucide-react';
 import { LANGUAGE_CONFIGS } from '../utils/templates.js';
+
+// Bundle monaco-editor locally so it never needs external CDN or gets blocked by CSP
+loader.config({ monaco });
 
 export default function CodeEditor({
   language,
