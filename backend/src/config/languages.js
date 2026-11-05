@@ -4,7 +4,7 @@ export const SUPPORTED_LANGUAGES = {
     name: 'C',
     extension: 'c',
     filename: 'main.c',
-    version: 'GCC (C17)',
+    version: 'GCC (C11)',
     monacoLanguage: 'c',
     starterTemplate: `#include <stdio.h>
 
@@ -13,7 +13,7 @@ int main() {
     return 0;
 }
 `,
-    compileCmd: ['gcc', '-O2', '-std=c17', 'main.c', '-o', 'main', '-lm'],
+    compileCmd: ['gcc', '-O0', '-std=c11', 'main.c', '-o', 'main', '-lm'],
     runCmd: ['./main'],
     windowsRunCmd: ['main.exe']
   },
@@ -22,7 +22,7 @@ int main() {
     name: 'C++',
     extension: 'cpp',
     filename: 'main.cpp',
-    version: 'G++ (C++17)',
+    version: 'G++ (C++14)',
     monacoLanguage: 'cpp',
     starterTemplate: `#include <iostream>
 
@@ -31,7 +31,7 @@ int main() {
     return 0;
 }
 `,
-    compileCmd: ['g++', '-O2', '-std=c++17', 'main.cpp', '-o', 'main'],
+    compileCmd: ['g++', '-O0', '-std=c++14', 'main.cpp', '-o', 'main'],
     runCmd: ['./main'],
     windowsRunCmd: ['main.exe']
   },
