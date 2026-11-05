@@ -113,7 +113,23 @@ app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: false, limit: '1mb' }));
 app.use('/api', healthRoutes);
 app.use('/api', executeRoutes);
-app.get('/', (req, res) => res.json({ name: 'CodeLab Compiler API', status: 'running' }));
+
+// In production, serve the frontend build if available
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distPath = path.resolve(__dirname, '../../frontend/dist');
+app.use(express.static(distPath));
+
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/ws')) return next();
+  res.sendFile(path.join(distPath, 'index.html'), (err) => {
+    if (err) {
+      res.json({ name: 'CodeLab Compiler API', status: 'running' });
+    }
+  });
+});
+
 app.use(errorHandler);
 
 // ─── HTTP Server ──────────────────────────────────────────────────────────────
