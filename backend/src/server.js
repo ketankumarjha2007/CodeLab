@@ -103,7 +103,22 @@ async function compileWithPrelude(langConfig, language, tempDir, compileArgs, en
 
 // ─── Express app ──────────────────────────────────────────────────────────────
 const app = express();
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.jsdelivr.net"],
+        scriptSrcElem: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+        imgSrc: ["'self'", "data:", "blob:"],
+        connectSrc: ["'self'", "http:", "https:", "ws:", "wss:"],
+        workerSrc: ["'self'", "blob:", "https://cdn.jsdelivr.net"]
+      }
+    }
+  })
+);
 app.use(cors({
   origin: CONSTANTS.CLIENT_ORIGIN,
   methods: ['GET', 'POST', 'OPTIONS'],

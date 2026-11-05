@@ -30,7 +30,11 @@ const DEFAULT_SETTINGS = {
 };
 
 // Compiler version badge data (shown in navbar, fetched from backend health API)
-const API_BASE = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:5000/api`;
+const API_BASE = import.meta.env.VITE_API_URL || (
+  window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? `http://${window.location.hostname}:5000/api`
+    : '/api'
+);
 
 function useToast() {
   const [toast, setToast] = useState(null);

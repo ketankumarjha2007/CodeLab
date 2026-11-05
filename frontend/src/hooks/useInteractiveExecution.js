@@ -1,10 +1,14 @@
 import { useRef, useState, useCallback } from 'react';
 
-// Derive WebSocket URL from the API base or fall back to localhost:5000
+// Derive WebSocket URL from the API base or current host
 const WS_BASE = (() => {
   const api = import.meta.env.VITE_API_URL;
   if (api) return api.replace(/\/api$/, '').replace(/^http/, 'ws');
-  return `ws://${window.location.hostname}:5000`;
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return `ws://${window.location.hostname}:5000`;
+  }
+  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  return `${protocol}//${window.location.host}`;
 })();
 
 /**
