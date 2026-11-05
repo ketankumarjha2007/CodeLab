@@ -179,11 +179,13 @@ export default function InteractiveTerminal({
           </div>
         )}
 
-        {/* Compiling (no output yet) */}
-        {status === 'compiling' && !output && (
+        {/* Compiling or Starting up (no output yet) */}
+        {!output && isRunning && (
           <div className="flex items-center gap-2 text-sky-600 dark:text-sky-400 py-2">
             <Loader2 className="w-4 h-4 animate-spin shrink-0" />
-            <span className="text-sm font-sans">Compiling...</span>
+            <span className="text-sm font-sans">
+              {status === 'compiling' ? 'Compiling code...' : 'Running program...'}
+            </span>
           </div>
         )}
 
@@ -203,7 +205,7 @@ export default function InteractiveTerminal({
                   : <span key={i} className="text-slate-800 dark:text-slate-100">{seg.text}</span>
               )}
 
-              {/* Inline input cursor — appears right after the last character of output */}
+              {/* Inline input cursor — appears ONLY when running and waiting for input */}
               {isRunning && (
                 <input
                   ref={inputRef}
@@ -221,25 +223,6 @@ export default function InteractiveTerminal({
                 />
               )}
             </div>
-          </div>
-        )}
-
-        {/* Show input field even before first output (program might be waiting) */}
-        {!output && isRunning && (
-          <div className="flex items-center">
-            <input
-              ref={inputRef}
-              type="text"
-              value={inputValue}
-              onChange={e => setInputValue(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Type your input and press Enter..."
-              className="flex-1 bg-transparent border-none outline-none font-mono text-[13px] text-emerald-600 dark:text-emerald-400 caret-emerald-500 dark:caret-emerald-400 placeholder-slate-400 dark:placeholder-slate-600 p-0 m-0 leading-relaxed"
-              spellCheck={false}
-              autoCapitalize="off"
-              autoCorrect="off"
-              autoComplete="off"
-            />
           </div>
         )}
 
