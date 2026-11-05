@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark body {
+  background-color: #07090f;
+  color: #f1f5f9;
+}
+
+html.light body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* Allow text selection inside terminal and editor */
+.select-text, pre, .font-mono, textarea {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Code typography */
+code, pre, kbd, .font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace !important;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+/* Resizer gutter */
+.resizer-h {
+  width: 6px;
+  cursor: col-resize;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.resizer-h::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2px;
+  width: 2px;
+  background: #1e2638;
+  transition: all 0.2s ease;
+}
+
+.resizer-h:hover::after,
+.resizer-h.resizing::after {
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+}
+
+.resizer-v {
+  height: 6px;
+  cursor: row-resize;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.resizer-v::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2px;
+  height: 2px;
+  background: #1e2638;
+  transition: all 0.2s ease;
+}
+
+.resizer-v:hover::after,
+.resizer-v.resizing::after {
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+}
